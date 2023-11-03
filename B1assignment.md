@@ -1,0 +1,68 @@
+Assignment B1
+================
+Jackie
+2023-10-30
+
+``` r
+library(testthat) #if testthat package is not already installed, run install.packages(testthat) prior
+```
+
+Exercise 1 and 2: The code chunk below contains both the function and
+documentation of the function that I have created for assignment B1.
+
+``` r
+# Area of circle calculation 
+
+# The function area_of_circle() is used to find the area of a circle when given the radius. This function only accepts numeric data greater than 0.  The function finds the square of the inputted radius and multiplies that by pi. 
+
+# @param r is the radius of the circle in which the user is trying to find the area for. I named the parameter "r" because this is a common way of listing the radius of an object. 
+
+# @return The output of the function is the area of a circle. Please note that the units for area are based on the units for the radius. If the radius is given in centimeters, the units for area will be cm^2. If the radius is given in meters, the units for area will be m^2. 
+
+area_of_circle <- function(r) {stopifnot(is.numeric(r), r>0) 
+    result <- pi*(r^2)
+    paste("The area of a circle with radius", r, "is", pi*(r^2))}
+```
+
+Exercise 2: Below are three examples of my function (area_of_circle())
+being put to use.
+
+Example 1. Find the area of a circle with given radius of 4.
+
+``` r
+print(area_of_circle(4))
+```
+
+    ## [1] "The area of a circle with radius 4 is 50.2654824574367"
+
+Example 2. Run area_of_circle() function to see what happens when a
+character is inputted.
+
+``` r
+print(area_of_circle("red"))
+```
+
+    ## Error in area_of_circle("red"): is.numeric(r) is not TRUE
+
+Example 3. Find area of a circle when given negative radius of -6. Note:
+a radius cannot be -6, I am just trying to show what happens when
+numeric data is inputted that does not fit the conditions of the code.
+
+``` r
+print(area_of_circle(-3))
+```
+
+    ## Error in area_of_circle(-3): r > 0 is not TRUE
+
+Exercise 4: Testing the function area_of_circle() using testthat
+package.
+
+``` r
+test_that("Testing area function", {
+  expect_equal(area_of_circle(c(2, 3, 4)), c("The area of a circle with radius 2 is 12.5663706143592", "The area of a circle with radius 3 is 28.2743338823081", "The area of a circle with radius 4 is 50.2654824574367"))
+  expect_error(area_of_circle(NA), regexp=NULL, class=NULL, "is.numeric(r) is not TRUE", inherit=TRUE, all=FALSE, info=NULL, label=NULL ) 
+  expect_error(area_of_circle(0), regexp=NULL, class=NULL, "r > 0 is not TRUE", inherit=TRUE, all=FALSE, info=NULL, label=NULL) #using 0 as I would like to confirm that my function will recognize 0 as an improper value for a radius which must have a positive integer. 
+})
+```
+
+    ## Test passed 🌈
